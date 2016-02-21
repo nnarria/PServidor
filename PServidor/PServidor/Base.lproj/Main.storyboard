@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -26,25 +25,39 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Rpl-3G-rvt">
-                                <rect key="frame" x="20" y="108" width="280" height="452"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gra-EJ-Zwl">
+                                <rect key="frame" x="165" y="117" width="115" height="128"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HYi-ql-Irg">
+                                <rect key="frame" x="40" y="287" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="f5h-Xp-ZJO"/>
-                                </connections>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Titulo del Libro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUX-z1-Wyw">
+                                <rect key="frame" x="40" y="117" width="117" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Autores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hi3-8z-iOh">
+                                <rect key="frame" x="40" y="258" width="240" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="TCj-6K-1z1">
+                                <rect key="frame" x="40" y="146" width="117" height="99"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Rpl-3G-rvt" secondAttribute="bottom" constant="8" symbolic="YES" id="2IV-no-bXx"/>
-                            <constraint firstItem="Rpl-3G-rvt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="7BL-BW-h2q"/>
                             <constraint firstItem="uJk-08-FQS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="7br-M2-t8w"/>
-                            <constraint firstItem="Rpl-3G-rvt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="AfP-1I-knO"/>
                             <constraint firstItem="uJk-08-FQS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L32-fQ-dvw"/>
                             <constraint firstItem="uJk-08-FQS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="VxK-wa-Pms"/>
-                            <constraint firstItem="Rpl-3G-rvt" firstAttribute="top" secondItem="uJk-08-FQS" secondAttribute="bottom" constant="13" id="bFj-kN-VS6"/>
                         </constraints>
                         <connections>
                             <action selector="userTappedBackground:" destination="BYZ-38-t0r" eventType="touchDown" id="vTS-99-zo5"/>
@@ -52,8 +65,11 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="outputTex" destination="Rpl-3G-rvt" id="aOy-YK-NPE"/>
+                        <outlet property="listaAutores" destination="HYi-ql-Irg" id="Q08-oW-GaY"/>
+                        <outlet property="portada" destination="Gra-EJ-Zwl" id="cK5-dZ-mbx"/>
                         <outlet property="searchBar" destination="uJk-08-FQS" id="Iks-q0-CcG"/>
+                        <outlet property="titAutores" destination="hi3-8z-iOh" id="n3W-Sd-1Ei"/>
+                        <outlet property="tituloLibro" destination="TCj-6K-1z1" id="vph-26-VbU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -17,7 +17,12 @@ class ViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate
     var overlayView: UIView!
     var loadingIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var outputTex: UITextView!
+    @IBOutlet weak var portada: UIImageView!
+
+    @IBOutlet weak var listaAutores: UITextView!
+    @IBOutlet weak var tituloLibro: UITextView!
+    
+    @IBOutlet weak var titAutores: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +31,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate
         
         self.urlServicio = "https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:"
         
-        /*
-        self.urlServicio = "https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:978-84-376-0494-7"
-        otro isbn: 0340335661
-        */
-       
         
         
         /* Para mostrar indicador de actividad cargando */
@@ -82,25 +82,78 @@ class ViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate
             print("pp: \(texto!) url: \(urlServicio)")
             */
             
-            
-            
-            
-            
+
             
             /* asincrono */
             let sesion = NSURLSession.sharedSession()
             let bloque = { (datos: NSData?, resp: NSURLResponse?, error: NSError?) -> Void in
-                let texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
+                _ = NSString(data: datos!, encoding: NSUTF8StringEncoding)
                 
                 dispatch_async(dispatch_get_main_queue()) {
                     self.loadingIndicator.stopAnimating()
                     self.overlayView.removeFromSuperview()
                     
-                    self.outputTex.text = String(texto!)
+                    
+                    do {
+                        let json = try NSJSONSerialization.JSONObjectWithData(datos!, options: NSJSONReadingOptions.MutableLeaves)
+                        let dico1 = json as! NSDictionary
+                        
+                        if (dico1["ISBN:"+isbn] != nil) {
+                        
+                            let dico2 = dico1["ISBN:"+isbn] as! NSDictionary
+                            let lstAuthors = dico2["authors"] as! NSArray
+                            let bookName = dico2["title"] as! NSString as String
+                        
+                            self.portada.image = nil
+                        
+                            if (dico2["cover"] != nil) {
+                                let dicoCover = dico2["cover"] as! NSDictionary
+                                let urls = dicoCover["medium"] as! NSString as String
+                            
+                                let url = NSURL(string:urls)
+                                let datos = NSData(contentsOfURL: url!)
+                                let img = UIImage (data: datos!)
+                                self.portada.image = img
+                            
+                                //print ("Cover:" + urls)
+                            }
+                        
+                            self.tituloLibro.text = bookName
+                            //print ("titulo: " + bookName)
+                        
+                        
+                        
+                            self.titAutores.text = String(lstAuthors.count)  + " Autor(es)"
+                        
+                            var aux: String = ""
+                            var i: Int = 1
+                            for element in lstAuthors {
+                                let dicoAuthor = element as! NSDictionary
+                                let nombre = dicoAuthor["name"] as! NSString as String
+                            
+                                aux += String(i) + " - " + nombre + "\n"
+                            
+                                i++
+                                //ok
+                                //print("nombre author: " + nombre)
+                            }
+                            self.listaAutores.text = aux
+                        }
+                        else {
+                            self.portada.image = nil
+                            self.tituloLibro.text = ""
+                            self.titAutores.text = "Autor(es)"
+                            self.listaAutores.text = ""
+                        }
+                        
+                    }
+                    catch _ {
+                        
+                    }
                 }
                 
                 
-                print ("\(texto!)")
+                //print ("\(texto!)")
                 
                 if (error != nil) {
                     let alertController = UIAlertController(title: "Error de comunicación", message: "Vuelva a intentar", preferredStyle: UIAlertControllerStyle.Alert)
